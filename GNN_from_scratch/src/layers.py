@@ -10,7 +10,7 @@ class MessagePassing:
         aggr: aggregation types ("sum" or "mean")
         """
         self.aggr = aggr
-
+        
 
     def message(self, X):
         """

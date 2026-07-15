@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def test_graph():
     """
     Builds a fictitious graph for tests
@@ -56,6 +57,7 @@ def degree_matrix(A):
     D = np.diag(degrees)
 
     return D
+
 
 def GCN_normalization(A):
     """
