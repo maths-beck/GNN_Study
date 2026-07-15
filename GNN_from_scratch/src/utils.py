@@ -24,3 +24,60 @@ def test_graph():
     ], dtype=np.float32)
 
     return X, A
+
+
+def add_self_loops(A):
+    """
+    Adds self-loops to the Adjacency Matrix, i.e. A_til = A + I
+    with I being identity matrix
+    Args:
+        A: Adjacency Matrix
+    Return:
+        A_til: Adjacency Matrix with self-loops
+    """
+    I = np.eye(A.shape[0], dtype=A.dtype)
+
+    A_til = A + I
+
+    return A_til
+
+
+def degree_matrix(A):
+    """
+    Computes the degree matrix D (diagonal matrix)
+    D_ii = sum of line i of A
+    Args:
+        A: Adjacency Matrix
+    Return:
+        D: Degree Matrix (N x N)
+    """
+    degrees = np.sum(A, axis=1)
+
+    D = np.diag(degrees)
+
+    return D
+
+def GCN_normalization(A):
+    """
+    Computes the symmetric normalization of GCN model
+    A_hat = D^{-1/2} * A_til * D{-1/2}
+    Args:
+        A: Adjacency Matrix
+    Return:
+        A_hat: Normalized Adjacency Matrix with self-loops 
+    """
+    # Adding self_loops to the Adjacency Matrix
+    A_til = add_self_loops(A)
+
+    # Obtaining the Degree Matrix
+    D_til = degree_matrix(A_til)
+
+    # Calculates D_til^{-1/2}
+    d_diag = np.diag(D_til)
+    d_inv_sqrt = 1.0 / np.sqrt(d_diag)
+    D_inv_sqrt = np.diag(d_inv_sqrt)
+
+    # Calculates A_hat
+    A_hat = D_inv_sqrt @ A_til @ D_inv_sqrt
+
+    return A_hat 
