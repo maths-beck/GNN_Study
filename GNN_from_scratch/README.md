@@ -1,1 +1,1 @@
-This study project is dedicated to implement classic models of GNNs (e.g. GCN, GAT) via Message Passing framework using just numpy (only forward propagation will be considered).
+This study project is dedicated to implement classic models of GNNs (e.g. GCN, GAT) via Message Passing framework using just NumPy (only forward propagation will be considered).
