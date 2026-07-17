@@ -1,18 +1,18 @@
 import numpy as np
 
-
 def test_graph():
     """
     Builds a fictitious graph for tests
     Return:
-        X: node feature matrix (N x F)
-        A: adjacency matrix (N x N)
+        X: Node feature Matrix (N x F)
+        A: Adjacency Matrix (N x N)
+        y: Target One-Hot Encoding Matrix (N x n_out)
     """
     # 4 nodes, each with 3 features (F = 3)
     X = np.array([
         [1.0, 0.0, 1.0], # Node 0
         [2.0, 0.0, 1.0], # Node 1
-        [0.0, 1.0, 2.0], # Node 2
+        [0.0, 0.0, 2.0], # Node 2
         [1.0, 1.0, 0.0]  # Node 3
     ], dtype=np.float32)
 
@@ -24,7 +24,15 @@ def test_graph():
         [0, 1, 1, 0]
     ], dtype=np.float32)
 
-    return X, A
+    # Target y in One-Hot Encoding format (4 nodes, 2 classes)
+    y = np.array([
+        [1.0, 0.0],  # Node 0 -> Class 0
+        [1.0, 0.0],  # Node 1 -> Class 0
+        [0.0, 1.0],  # Node 2 -> Class 1
+        [0.0, 1.0]   # Node 3 -> Class 1
+    ])
+
+    return X, A, y
 
 
 def add_self_loops(A):
