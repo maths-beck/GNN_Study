@@ -23,5 +23,4 @@ The repository is structured to be modular and scalable. The core logic relies o
 │   ├── layers.py                # MessagePassing base class, GCNLayer, and future GATLayer
 │   ├── models.py                # Model architectures (e.g., GCNModel) assembling the layers
 │   └── utils.py                 # Graph generation, symmetric adjacency normalization, etc.
-├── requirements.txt             # Project dependencies
 └── README.md
