@@ -2,7 +2,7 @@
 This study project is dedicated to implementing classic models of GNNs for Node Classification via Message Passing framework using just NumPy and Autograd for weight optimization.
 
 ## Graph Convolutional Networks (GCN)
-As one of the foundational GNN architectures, it utilizes the theory of Spectral Graph Convolutions to achieve an optimized way to obtain Node Representations (Embeddings), applied here to a Node Classification task, though its underlying logic is highly relevant for various other domains. In the original paper (Kipf & Welling, 2017), they present the following matrix form of the propagation rule for GCNs:
+As one of the foundational GNN architectures, it utilizes the theory of Spectral Graph Convolutions to achieve an optimized way to obtain Node Representations (Embeddings). Applied here to a Node Classification task, though its underlying logic is highly relevant for various other domains. In the original paper (Kipf & Welling, 2017), they present the following matrix form of the propagation rule for GCNs:
 
 $$H^{(l+1)} = \sigma \left(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)} \right)$$
 
