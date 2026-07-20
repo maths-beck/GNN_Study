@@ -24,7 +24,7 @@ In the original modeling, the proposed GCN had a traditional ReLU as the activat
 ## Graph Attention Networks (GAT)
 As another classic GNN architecture, GATs utilize the attention mechanism - widely applied in other AI fields such as NLP - to determine the importance of each node in the neighborhood, dynamically weighting their features to compute a more robust node representation. Again, we applied it here for Node Classification task, though its versatility. In the original paper (Veličković et al, 2018), it's presented that we can calculate the attention coefficients with the following architecture:
 
-$$\alpha_{ij} = \frac{\exp \left( \text{LeakyReLU} \left( \mathbf{a}^T [ \mathbf{W}h_i \,||\, \mathbf{W}h_j ] \right) \right)}{\sum_{k \in \mathcal{N}_i} \exp \left( \text{LeakyReLU} \left( \mathbf{a}^T [ \mathbf{W}h_i \,||\, \mathbf{W}h_k ] \right) \right)}$$
+$$\alpha_{ij} = \frac{\exp \left( \text{LeakyReLU} \left( \mathbf{a}^T [ \mathbf{W}h_i \| \mathbf{W}h_j ] \right) \right)}{\sum_{k \in \mathcal{N}_i} \exp \left( \text{LeakyReLU} \left( \mathbf{a}^T [ \mathbf{W}h_i \| \mathbf{W}h_k ] \right) \right)}$$
 
 With the new node representation being acquired by applying:
 
