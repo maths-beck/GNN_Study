@@ -1,6 +1,6 @@
 # GNN_Study
 
-This repository serves as a collection of my practical studies and implementations focused on **Graph Neural Networks (GNNs)** and **Geometric Deep Learning**. 
+This repository serves as a collection of my practical studies and implementations focused on **Graph Neural Networks (GNNs)**.
 
 As a Computer Science undergraduate at [USP](https://www.usp.br/), my objective with this study collection is to bridge the gap between theoretical concepts in Graph Machine Learning and their practical implementation from the ground up.
 
