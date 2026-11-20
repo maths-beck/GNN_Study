@@ -22,7 +22,7 @@ $$\mathbf{H}^{(l+1)} = \sigma \left( \tilde{\mathbf{D}}^{-\frac{1}{2}} \tilde{\m
 In the original modeling, the proposed GCN had a traditional ReLU as the activation function at the first layer. However, in this project, due to the Dead ReLU phenomenon, LeakyReLU was chosen instead and a bias vector was added.
 
 ## Graph Attention Networks (GAT)
-As another classic GNN architecture, GATs utilize the attention mechanism - widely applied in other AI fields such as NLP - to determine the importance of each node in the neighborhood, dynamically weighting their features to compute a more robust node representation. Again, we applied it here for Node Classification task, though its versatility. In the original paper (Veličković et al, 2018), it's presented that we can calculate the attention coefficients with the following architecture:
+As another classic GNN architecture, GATs utilize the attention mechanism - widely applied in other AI fields such as NLP - to determine the importance of each node in the neighborhood, dynamically weighting their features to compute a more robust node representation. Again, we applied it here to a Node Classification task, although the architecture is applicable to other graph learning tasks. In the original paper (Veličković et al, 2018), it's presented that we can calculate the attention coefficients with the following architecture:
 
 $$\alpha_{ij} = \frac{\exp \left( \text{LeakyReLU} \left( \mathbf{a}^T [ \mathbf{W}h_i \\| \mathbf{W}h_j ] \right) \right)}{\sum_{k \in \mathcal{N}_i} \exp \left( \text{LeakyReLU} \left( \mathbf{a}^T [ \mathbf{W}h_i \\| \mathbf{W}h_k ] \right) \right)}$$
 
@@ -50,7 +50,7 @@ The results were perfect, both models worked as expected and the nodes were accu
 | **2** | Class 1 | 0.0616 / 0.9384 | 0.0022 / 0.9978 |
 | **3** | Class 1 | 0.0616 / 0.9384 | 0.0022 / 0.9978 |
 
-The GAT model demonstrates a higher confidence in its predictions, illustrating the impact of the dynamic attention mechanism over static routing.
+In this run, the GAT model produced more confident predictions. However, the two models differ in several aspects (activation function, bias, normalization and number of parameters), and the toy graph is too small to attribute this difference to the attention mechanism alone.
 
 ### Loss Curves
 
@@ -60,13 +60,13 @@ The GAT model demonstrates a higher confidence in its predictions, illustrating 
   <img src="./images/GAT_Loss_Curve.png" alt="GAT Loss Curve" width="48%">
 </p>
 
-The main difference between the loss curves of GCN and GAT comes down to the level of freedom and how each model perceives the graph structure:
+Both models operate on the same fixed graph structure: messages only flow along existing edges (plus self-loops). The difference lies in how each neighbor's message is weighted:
 
-- **GCN (Smooth Convergence)**: Operates with a static topology. Since the adjacency matrix is predefined and immutable, the model optimizes only the representation weights (features). This creates a restricted learning environment, acting as a natural regularizer that results in a gradual and highly stable descent over the epochs.
+- **GCN (Smooth Convergence)**: neighbor weights are fixed and given by the symmetric degree normalization $1/\sqrt{\tilde{d}_i \tilde{d}_j}$. Only the linear transformations (and biases) are learned, and the loss decreases gradually over the epochs.
 
-- **GAT (Abrupt/Accelerated Convergence)**: Operates with a dynamic topology. Through the attention mechanism, the model recalculates the importance of each neighbor at every iteration, simultaneously optimizing the features and the connection structure. This allows the model to find shortcuts and solve simple graphs quickly, but it adds complexity and potential instability when optimizing real and noisy graphs.
+- **GAT (Faster Convergence)**: neighbor weights $\alpha_{ij}$ are computed from the node features through a learnable attention vector, so the model can learn to emphasize some neighbors over others. In this experiment its loss decreased faster. Since the models also differ in activation, bias and parameter count, and only one small graph and one seed were used, this observation should not be read as a general property of GAT.
 
-To solve this instability when dealing with complex and noisy real-world graphs, the GAT architecture introduces Multi-Head Attention, which computes multiple independent attention mechanisms in parallel and aggregates their results, effectively stabilizing the dynamic learning process.
+The original paper (Veličković et al., 2018) also employs Multi-Head Attention, computing several independent attention mechanisms in parallel and concatenating or averaging their outputs, which the authors found beneficial for stabilizing the learning process of self-attention. This implementation uses a single attention head.
 
 ## Project Structure
 
